@@ -66,7 +66,7 @@ def demo_streaming():
 
     # Streaming - run with streaming enabled
     print("Streaming Output: ")
-    for chunk in chain.stream({"topic" : "Larger part of scociety shifting from Ownership to Sharing. Few own islands yet many do not have a place to call a home. Larger reason is coorporate greed leading to financial inequality. This isn't so happy thing, yet institutions celebrate it in the name of You'll be happy"}):
+    for chunk in chain.stream({"topic" : "Larger part of society shifting from Ownership to Sharing. Few own islands yet many do not have a place to call a home. Larger reason is coorporate greed leading to financial inequality. This isn't so happy thing, yet institutions celebrate it in the name of You'll be happy"}):
         print(chunk, end = "", flush= True)
     print()
 
@@ -82,7 +82,7 @@ def demo_schema_inspection():
 
     chain = prompt | model | parser
 
-    # Insoecting Output and input schemas
+    # Inspecting Output and input schemas
     input_schema = chain.input_schema.model_json_schema()
     output_schema = chain.output_schema.model_json_schema()
 
@@ -92,16 +92,17 @@ def demo_schema_inspection():
     return chain
 
 
+
 def exercise_first_chain():
 
     """
     Exercise: Create a chain that :
-    1: Take a product name and target audience.
+    1: Takes a product name and target audience.
     2: Generates a marketing tagline.
     3: Returns just the tagline as string.
 
 
-    Test with product : AI Course and audience : Developer 
+    Test with product : AI Course and Audience : Developer 
     """
 
 
@@ -121,7 +122,7 @@ def exercise_first_chain():
 
     result = chain.invoke({"product" : "AI Course", "audience" : "Developer"})
 
-    print("Generated Tagline: \n ",result)
+    print("Generated Tagline: \n ", result)
 
     return chain
 

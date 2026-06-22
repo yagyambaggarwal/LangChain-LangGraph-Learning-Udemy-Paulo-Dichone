@@ -3,6 +3,7 @@ Working with LLMs in LangChain V.1
 Multiple providers, configuartions, streaming and cost optimization
 """
 
+
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
@@ -41,7 +42,7 @@ def demo_init_chat_model():
 
 def demo_messages():
     model = init_chat_model(
-        model= "llama-3.1-8b-instant",
+        model = "llama-3.1-8b-instant",
         model_provider="groq"
     )
     
@@ -127,4 +128,74 @@ def exercise_multi_turn_newsAnchor():
 # demo_init_chat_model()
 # demo_messages()
 # demo_message()
-exercise_multi_turn_newsAnchor()
+
+# exercise_multi_turn_newsAnchor()
+
+
+# Self practice for multi turn covo with AI (as Oprah Winfrey) as a host.
+def func():
+    model = init_chat_model(
+        model= "llama-3.1-8b-instant",
+        model_provider = "groq"
+    )
+    
+    query = input("Ask Oprah: ")
+
+    messages = [
+        SystemMessage(content= "You are an English host, lets say Oprah Winfrey, act like one while answering. Answer in 300 words each query"),
+        HumanMessage(content= query)
+    ]
+
+
+
+    while query != "STOP":
+
+        larger_context = ""
+
+        for chunk in model.stream(messages):
+            print(chunk.content, end = "",  flush = False)
+            larger_context += chunk.content
+        print()
+
+        query = input("Ask further ques: ")
+
+        messages.append(larger_context)
+        messages.append(HumanMessage(content= query))
+
+
+
+
+def multi_message_template():
+    model = init_chat_model(
+        model = "llama-3.1-8b-instant",
+        model_provider = "groq"
+    )
+
+    SystemMsg= input("Configure AI to respond most precisely: ")
+    HumanMsg = input("Ask AI: " )
+
+    messages = [
+        SystemMessage(content = SystemMsg if SystemMsg else "Answer each question with clarity and nicely."),
+        HumanMessage(content = HumanMsg)
+    ]
+
+
+
+    while HumanMsg != "STOP":
+        largerContext = ""
+
+        for chunk in model.stream(messages):
+            print(chunk.content, end = " ", flush = False)
+            largerContext += chunk.content
+        print()
+                
+
+        HumanMsg = input("Any further query else type STOP: ")
+
+            
+        messages.append(largerContext)
+        messages.append(HumanMessage(content= HumanMsg))
+
+
+
+multi_message_template()
